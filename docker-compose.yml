@@ -18,6 +18,15 @@ services:
       - ./data/prometheus:/prometheus
     restart: unless-stopped
 
+  node-expoter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    user: ":"
+    networks: [monitor]    
+    restart: unless-stopped
+
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -33,3 +42,4 @@ services:
 
 networks:
   monitor:
+    driver: bridge
