@@ -12,7 +12,8 @@ services:
     ports:
       - "9090:9090"
     user: ":"
-    networks: [monitor]
+    networks: 
+      - monitor
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./data/prometheus:/prometheus
@@ -20,11 +21,12 @@ services:
 
   node-expoter:
     image: prom/node-exporter
-    container_name: node-exporter
+    container_name: exporter
     ports:
       - "9100:9100"
     user: ":"
-    networks: [monitor]    
+    networks: 
+      - monitor
     restart: unless-stopped
 
   grafana:
@@ -33,7 +35,8 @@ services:
     user: ":"
     ports:
       - "3000:3000"
-    networks: [monitor]
+    networks: 
+      - monitor
     volumes:
       - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/datasource.yml
