@@ -4,29 +4,34 @@
   # | | | | | | (_) | | | | | || (_) | |  | | | | | (_| |
   # |_| |_| |_|\___/|_| |_|_|\__\___/|_|  |_|_| |_|\__, |
   #                                                |___/
-
-version: '3'
-
+version: "3.8"
 services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus
     ports:
       - "9090:9090"
+    user: ":"
+    networks: [monitor]
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    restart: always
+      - ./data/prometheus:/prometheus
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
     container_name: grafana
+    user: ":"
     ports:
       - "3000:3000"
+    networks: [monitor]
     volumes:
-      - ./grafana:/var/lib/grafana
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=@thinhpn
-    restart: always
+      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/datasource.yml
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./grafana/dashboards:/etc/dashboards
+      - ./data/grafana:/var/lib/grafana
+    restart: unless-stopped
 
+networks:
+  monitor:
