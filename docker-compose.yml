@@ -15,7 +15,7 @@ services:
     networks: 
       - monitor
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/config.yml:/etc/prometheus/config.yml
       - ./data/prometheus:/prometheus
     restart: unless-stopped
 
@@ -27,7 +27,17 @@ services:
     user: ":"
     networks: 
       - monitor
-    restart: unless-stopped
+    restart: unless-stopped  
+
+  otel-collector:
+    image: otel/opentelemetry-collector
+    ports:
+      - "4317:4317"
+      - "55678:55678"
+      - "8888:8888"
+    volumes:
+      - ./otel/config.yml:/etc/otel/config.yml
+    command: ["--config", "/etc/otel/config.yml"]
 
   grafana:
     image: grafana/grafana

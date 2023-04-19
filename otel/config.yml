@@ -1,0 +1,19 @@
+receivers:  
+  celestia:
+    protocols:
+      http:
+        endpoint: localhost:4418 #metric celestia
+
+processors:
+  batch:
+
+exporters:
+   prometheus:
+     endpoint: localhost:9090
+
+service:
+  pipelines:
+    metrics:
+      receivers: [celestia]
+      processors: [batch]
+      exporters: [prometheus]
