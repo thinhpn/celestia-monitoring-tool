@@ -10,4 +10,4 @@
 
  docker run -it -v C:\Users\User\OneDrive\Coding\CELESTIA\celestia-dockers:/home/ --name "TEST_SCRIPT" -h TEST_SCRIPT_SERVER ubuntu:latest
 
- chmod +x celestia_one_script.sh
+ sudo chmod +x celestia_one_script.sh

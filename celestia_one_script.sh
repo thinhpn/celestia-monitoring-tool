@@ -31,9 +31,9 @@ git clone https://github.com/celestiaorg/celestia-node.git
 cd celestia-node/ 
 git checkout tags/v0.9.1
 
-sudo make build 
+make build 
 sudo make install 
-sudo make cel-key
+make cel-key
 
 echo "#############===========INIT BLOCKSPACE RACE"
 celestia light init --p2p.network blockspacerace
