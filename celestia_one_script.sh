@@ -19,7 +19,6 @@ wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 rm -rf /usr/local/go 
 tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" 
 rm "go$ver.linux-amd64.tar.gz"
-
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
@@ -29,7 +28,6 @@ echo "#############===========CLONE CELESTIA REPOSITORY & INSTALL NODE"
 cd $HOME 
 rm -rf celestia-node 
 git clone https://github.com/celestiaorg/celestia-node.git
-
 cd celestia-node/ 
 git checkout tags/v0.9.1
 
@@ -37,10 +35,10 @@ make build
 make install 
 make cel-key
 
-## INIT BLOCKSPACE RACE
+echo "#############===========INIT BLOCKSPACE RACE"
 celestia light init --p2p.network blockspacerace
 
-## CREATE SERVICE TO RUN NODE BY SYSTEMD
+echo "#############===========CREATE SERVICE TO RUN NODE BY SYSTEMD"
 sudo tee /etc/systemd/system/celestia-lightd.service <<EOF >/dev/null
 [Unit]
 Description=celestia-lightd Light Node
@@ -62,18 +60,15 @@ sudo systemctl enable celestia-lightd
 sudo systemctl start celestia-lightd
 journalctl -u celestia-lightd.service -f
 
-## GET NODE INFORMATION
+echo "#############===========GET NODE INFORMATION"
 NODE_TYPE=light
 AUTH_TOKEN=$(celestia $NODE_TYPE auth admin --p2p.network blockspacerace)
-
 NODE_INFO=$(curl -X POST \
  -H "Authorization: Bearer $AUTH_TOKEN" \
  -H 'Content-Type: application/json' \
  -d '{"jsonrpc":"2.0","id":0,"method":"p2p.Info","params":[]}' \
  http://localhost:26658)
-
 NODE_ID=$(echo "$NODE_INFO" | jq -r '.result.ID')
-
 echo -e "\nThe celestia light-node was installed successfully!"
 echo -e "\nYour light-node id: $NODE_ID"
 
