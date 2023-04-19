@@ -60,6 +60,8 @@ sudo systemctl enable celestia-lightd
 sudo systemctl start celestia-lightd
 ###journalctl -u celestia-lightd.service -f
 
+sleep 10
+
 echo "#############===========GET NODE INFORMATION"
 NODE_TYPE=light
 AUTH_TOKEN=$(celestia $NODE_TYPE auth admin --p2p.network blockspacerace)
@@ -67,7 +69,7 @@ NODE_INFO=$(curl -X POST \
  -H "Authorization: Bearer $AUTH_TOKEN" \
  -H 'Content-Type: application/json' \
  -d '{"jsonrpc":"2.0","id":0,"method":"p2p.Info","params":[]}' \
- http://localhost:26658)
+ http://localhost:26658;)
 NODE_ID=$(echo "$NODE_INFO" | jq -r '.result.ID')
 echo -e "\nThe celestia light-node was installed successfully!"
 echo -e "\nYour light-node id: $NODE_ID"
