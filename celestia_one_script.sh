@@ -7,12 +7,12 @@ IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 echo "#############===========YOUR IP ADDRESS: $IP_ADDRESS"
 
 echo "#############===========SYSTEM UPDATE"
-apt-get update -y
-apt install sudo -y
-apt install systemd -y
+sudo apt-get update -y
+sudo apt install sudo -y
+sudo apt install systemd -y
 
 echo "#############===========INSTALL LIB, GIT & GO"
-apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu -y
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu -y
 ver="1.20" 
 cd $HOME 
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
@@ -22,7 +22,7 @@ rm "go$ver.linux-amd64.tar.gz"
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
-apt install git
+sudo apt install git
 
 echo "#############===========CLONE CELESTIA REPOSITORY & INSTALL NODE"
 cd $HOME 
@@ -31,9 +31,9 @@ git clone https://github.com/celestiaorg/celestia-node.git
 cd celestia-node/ 
 git checkout tags/v0.9.1
 
-make build 
-make install 
-make cel-key
+sudo make build 
+sudo make install 
+sudo make cel-key
 
 echo "#############===========INIT BLOCKSPACE RACE"
 celestia light init --p2p.network blockspacerace
@@ -58,7 +58,7 @@ EOF
 cat /etc/systemd/system/celestia-lightd.service
 sudo systemctl enable celestia-lightd
 sudo systemctl start celestia-lightd
-journalctl -u celestia-lightd.service -f
+###journalctl -u celestia-lightd.service -f
 
 echo "#############===========GET NODE INFORMATION"
 NODE_TYPE=light
