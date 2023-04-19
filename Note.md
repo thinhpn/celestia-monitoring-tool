@@ -7,3 +7,5 @@
    + Network Traffic: node_network_receive_bytes_total, node_network_transmit_bytes_total
    + Disk IO: node_disk_io_time_seconds_total
    + Uptime: node_time_seconds
+
+ docker run -it -v C:\Users\User\OneDrive\Coding\CELESTIA\celestia-dockers:/home/ --name "TEST_SCRIPT" -h TEST_SCRIPT_SERVER ubuntu:latest

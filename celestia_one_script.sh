@@ -1,25 +1,31 @@
 #!/bin/bash
-echo -e "
-\e[42m====BEGIN INSTALL CELESTIA LIGHT-NODE===[0m
+echo -e "====BEGIN INSTALL CELESTIA LIGHT-NODE===
 - The script is used to install celestia light node version for monitoring.
 - First let's intall Celestia Light Node
 ";
 IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
-echo "Your IP address: $IP_ADDRESS"
+echo "#############===========YOUR IP ADDRESS: $IP_ADDRESS"
 
-##INSTALL LIB & GO
-sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu -y
+echo "#############===========SYSTEM UPDATE"
+apt-get update -y
+apt install sudo -y
+apt install systemd -y
+
+echo "#############===========INSTALL LIB, GIT & GO"
+apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu -y
 ver="1.20" 
 cd $HOME 
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
-sudo rm -rf /usr/local/go 
-sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" 
+rm -rf /usr/local/go 
+tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" 
 rm "go$ver.linux-amd64.tar.gz"
 
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
-##CLONE CELESTIA REPOSITORY & INSTALL NODE
+apt install git
+
+echo "#############===========CLONE CELESTIA REPOSITORY & INSTALL NODE"
 cd $HOME 
 rm -rf celestia-node 
 git clone https://github.com/celestiaorg/celestia-node.git
