@@ -9,7 +9,7 @@ processors:
 
 exporters:
    prometheus:
-     endpoint: localhost:9090
+     endpoint: host.docker.internal:8888
 
 service:
   pipelines:

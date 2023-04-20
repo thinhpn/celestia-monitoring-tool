@@ -31,6 +31,7 @@ services:
 
   otel-collector:
     image: otel/opentelemetry-collector
+    container_name: otel
     ports:
       - "4317:4317"
       - "55678:55678"
