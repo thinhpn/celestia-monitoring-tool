@@ -6,16 +6,6 @@
   #                                                |___/
 version: "3"
 services:
-
-  node-exporter:
-    image: prom/node-exporter
-    container_name: "node-exporter"
-    ports:
-      - "9100:9100"    
-    networks: 
-      - monitoring
-    restart: unless-stopped
-
   #otel-collector:
   #  image: otel/opentelemetry-collector
   #  container_name: "otel-collector"
@@ -37,16 +27,24 @@ services:
     image: prom/prometheus
     container_name: "prometheus"
     ports:
-      - "9090:9090"    
-    depends_on:
-      - "node-exporter"
-      #- "otel-collector"
+      - "9090:9090"
     networks: 
       - monitoring
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./data/prometheus:/prometheus
-    restart: unless-stopped 
+    restart: unless-stopped
+  
+  node-exporter:
+    image: prom/node-exporter
+    container_name: "node-exporter"
+    ports:
+      - "9100:9100"
+    depends_on:
+      - "prometheus"     
+    networks: 
+      - monitoring
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
