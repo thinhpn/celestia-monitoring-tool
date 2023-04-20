@@ -6,18 +6,6 @@
   #                                                |___/
 version: "3"
 services:
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    ports:
-      - "9090:9090"
-    user: ":"
-    networks: 
-      - monitoring
-    volumes:
-      - ./prometheus/config.yml:/etc/prometheus/config.yml
-      - ./data/prometheus:/prometheus
-    restart: unless-stopped
 
   node-expoter:
     image: prom/node-exporter
@@ -27,7 +15,7 @@ services:
     user: ":"
     networks: 
       - monitoring
-    restart: unless-stopped  
+    restart: unless-stopped
 
   otel-collector:
     image: otel/opentelemetry-collector
@@ -42,6 +30,19 @@ services:
     volumes:
       - ./otel/config.yml:/etc/otel/config.yml
     command: ["--config", "/etc/otel/config.yml"]
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    user: ":"
+    networks: 
+      - monitoring
+    volumes:
+      - ./prometheus/config.yml:/etc/prometheus/config.yml
+      - ./data/prometheus:/prometheus
+    restart: unless-stopped 
 
   grafana:
     image: grafana/grafana
