@@ -44,8 +44,7 @@ services:
     networks: 
       - monitoring
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./data/prometheus:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml      
     restart: unless-stopped 
 
   #grafana:
