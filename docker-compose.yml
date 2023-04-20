@@ -7,7 +7,7 @@
 version: "3"
 services:
 
-  node-expoter:
+  node-exporter:
     image: prom/node-exporter
     container_name: exporter
     ports:
@@ -42,6 +42,7 @@ services:
       - monitoring
     volumes:
       - ./prometheus/config.yml:/etc/prometheus/config.yml
+      - ./data/prometheus:/prometheus
     restart: unless-stopped 
 
   grafana:
