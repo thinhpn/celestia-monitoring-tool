@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [
     {
       "asDropdown": false,
@@ -125,7 +124,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\"}[5m])) * 100)",
+          "expr": "100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\"}[1m])) * 100)",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -494,6 +493,6 @@
   "timezone": "",
   "title": "Infrastructure",
   "uid": "IJMl5xE4z",
-  "version": 11,
+  "version": 1,
   "weekStart": "monday"
 }
