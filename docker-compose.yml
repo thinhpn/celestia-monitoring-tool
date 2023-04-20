@@ -9,7 +9,7 @@ services:
 
   node-exporter:
     image: prom/node-exporter
-    container_name: exporter
+    container_name: "node-exporter"
     ports:
       - "9100:9100"
     user: ":"
@@ -34,7 +34,7 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: prometheus
+    container_name: "prometheus"
     ports:
       - "9090:9090"
     user: ":"
@@ -47,7 +47,7 @@ services:
 
   grafana:
     image: grafana/grafana
-    container_name: grafana
+    container_name: "grafana"
     user: ":"
     ports:
       - "3000:3000"
