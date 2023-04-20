@@ -28,8 +28,8 @@ services:
   #  networks: 
   #    - monitoring
   #  volumes:
-  #    - ./otel/config.yml:/etc/otel/config.yml
-  #  command: ["--config", "/etc/otel/config.yml"]
+  #    - ./otel/otel.yml:/etc/otel/otel.yml
+  #  command: ["--config", "/etc/otel/otel.yml"]
   #  restart: unless-stopped 
 
   prometheus:
@@ -41,7 +41,7 @@ services:
     networks: 
       - monitoring
     volumes:
-      - ./prometheus/config.yml:/etc/prometheus/config.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./data/prometheus:/prometheus
     restart: unless-stopped 
 
