@@ -13,7 +13,7 @@ services:
       - "9090:9090"
     user: ":"
     networks: 
-      - monitor
+      - monitoring
     volumes:
       - ./prometheus/config.yml:/etc/prometheus/config.yml
       - ./data/prometheus:/prometheus
@@ -26,7 +26,7 @@ services:
       - "9100:9100"
     user: ":"
     networks: 
-      - monitor
+      - monitoring
     restart: unless-stopped  
 
   otel-collector:
@@ -36,6 +36,9 @@ services:
       - "4317:4317"
       - "55678:55678"
       - "8888:8888"
+      - "4418:4418"
+    networks: 
+      - monitoring
     volumes:
       - ./otel/config.yml:/etc/otel/config.yml
     command: ["--config", "/etc/otel/config.yml"]
@@ -47,7 +50,7 @@ services:
     ports:
       - "3000:3000"
     networks: 
-      - monitor
+      - monitoring
     volumes:
       - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/datasource.yml
@@ -55,5 +58,5 @@ services:
     restart: unless-stopped
 
 networks:
-  monitor:
+  monitoring:
     driver: bridge
