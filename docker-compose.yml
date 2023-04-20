@@ -17,19 +17,20 @@ services:
       - monitoring
     restart: unless-stopped
 
-  otel-collector:
-    image: otel/opentelemetry-collector
-    container_name: otel
-    ports:
-      - "4317:4317"
-      - "55678:55678"
-      - "8888:8888"
-      - "4418:4418"
-    networks: 
-      - monitoring
-    volumes:
-      - ./otel/config.yml:/etc/otel/config.yml
-    command: ["--config", "/etc/otel/config.yml"]
+  #otel-collector:
+  #  image: otel/opentelemetry-collector
+  #  container_name: otel
+  #  ports:
+  #    - "4317:4317"
+  #    - "55678:55678"
+  #    - "8888:8888"
+  #    - "4418:4418"
+  #  networks: 
+  #    - monitoring
+  #  volumes:
+  #    - ./otel/config.yml:/etc/otel/config.yml
+  #  command: ["--config", "/etc/otel/config.yml"]
+  #  restart: unless-stopped 
 
   prometheus:
     image: prom/prometheus
@@ -41,7 +42,6 @@ services:
       - monitoring
     volumes:
       - ./prometheus/config.yml:/etc/prometheus/config.yml
-      - ./data/prometheus:/prometheus
     restart: unless-stopped 
 
   grafana:
