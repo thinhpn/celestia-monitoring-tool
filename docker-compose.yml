@@ -11,33 +11,36 @@ services:
     image: prom/node-exporter
     container_name: "node-exporter"
     ports:
-      - "9100:9100"
-    user: ":"
+      - "9100:9100"    
     networks: 
       - monitoring
     restart: unless-stopped
 
   #otel-collector:
   #  image: otel/opentelemetry-collector
-  #  container_name: otel
+  #  container_name: "otel-collector"
   #  ports:
   #    - "4317:4317"
   #    - "55678:55678"
   #    - "8888:8888"
   #    - "4418:4418"
+  #  depends_on:
+  #  - "node-exporter"
   #  networks: 
   #    - monitoring
   #  volumes:
-  #    - ./otel/otel.yml:/etc/otel/otel.yml
-  #  command: ["--config", "/etc/otel/otel.yml"]
+  #    - ./otel/config.yaml:/etc/otel/config.yaml
+  #  command: ["--config=/etc/otel/config.yaml"]
   #  restart: unless-stopped 
 
   prometheus:
     image: prom/prometheus
     container_name: "prometheus"
     ports:
-      - "9090:9090"
-    user: ":"
+      - "9090:9090"    
+    depends_on:
+      - "node-exporter"
+      - "otel-collector"
     networks: 
       - monitoring
     volumes:
@@ -49,6 +52,10 @@ services:
     image: grafana/grafana
     container_name: "grafana"
     user: ":"
+    depends_on:
+      - "node-exporter"
+      - "otel-collector"
+      - "prometheus"
     ports:
       - "3000:3000"
     networks: 
@@ -56,6 +63,7 @@ services:
     volumes:
       - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/datasource.yml
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
     restart: unless-stopped
 
