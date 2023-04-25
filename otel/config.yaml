@@ -2,7 +2,7 @@ receivers:
   celestia:
     protocols:
       http:
-        endpoint: localhost:4418 #metric celestia
+        endpoint: localhost:4318 #metric celestia
 
 processors:
   batch:
