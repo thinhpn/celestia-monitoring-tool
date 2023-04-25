@@ -25,15 +25,14 @@ services:
       - "node-exporter"     
     networks: 
       - monitoring
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml      
+    #volumes:
+    #  - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml      
     restart: unless-stopped 
 
   otel-collector:
     image: otel/opentelemetry-collector
     container_name: "otel-collector"
-    ports:
-      - "4317:4317"
+    ports:      
       - "55678:55678"      
       - "4318:4318"
     depends_on:
