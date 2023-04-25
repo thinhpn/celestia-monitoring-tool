@@ -2,7 +2,7 @@ receivers:
   otlp:
     protocols:
       http:
-        endpoint: localhost:4318' #metric celestia
+        endpoint: localhost:4318 #metric celestia
   prometheus:
     config:
       scrape_configs:
