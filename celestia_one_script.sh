@@ -11,14 +11,14 @@ sudo apt-get update -y
 sudo apt install sudo -y
 sudo apt install systemd -y
 
-echo "#############===========INSTALL LIB, GIT & GO"
+echo "#############===========INSTALL GO & GIT"
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu -y
-ver="1.20" 
+ver="1.20.3" 
 cd $HOME 
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" 
+wget "https://golang.org/dl/go$ver.linux-arm64.tar.gz" 
 sudo rm -rf /usr/local/go 
-sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" 
-sudo rm "go$ver.linux-amd64.tar.gz"
+sudo tar -C /usr/local -xzf "go$ver.linux-arm64.tar.gz" 
+sudo rm "go$ver.linux-arm64.tar.gz"
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
