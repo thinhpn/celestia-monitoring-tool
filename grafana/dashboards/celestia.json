@@ -222,7 +222,7 @@
           "refId": "A"
         }
       ],
-      "title": "Last Sampled Time(s)",
+      "title": "Last Sampled Time(seconds ago)",
       "type": "gauge"
     },
     {
