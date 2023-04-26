@@ -56,11 +56,11 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
-                "color": "red",
+                "color": "blue",
                 "value": 80
               }
             ]
@@ -109,83 +109,26 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "Network Traffic (Mbps)",
+      "description": "Free Disk (%)",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "smooth",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "continuous-RdYlGr"
           },
           "mappings": [],
+          "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Download"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Upload"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -193,19 +136,22 @@
         "x": 5,
         "y": 0
       },
-      "id": 2,
+      "id": 4,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto"
       },
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -213,28 +159,14 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) / 1024 / 1024",
-          "hide": false,
+          "expr": "100*node_filesystem_free_bytes{mountpoint=\"/etc/hostname\"} / node_filesystem_size_bytes{mountpoint=\"/etc/hostname\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[1m])/1024/1024",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
         }
       ],
-      "title": "Network Traffic (Mbps)",
-      "type": "timeseries"
+      "title": "Free Disk (%)",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -427,7 +359,7 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "Free Disk (%)",
+      "description": "Network Traffic (Mbps)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -448,9 +380,6 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
-            "lineStyle": {
-              "fill": "solid"
-            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -460,15 +389,13 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "normal"
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -483,7 +410,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Download"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Upload"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -491,13 +443,13 @@
         "x": 12,
         "y": 9
       },
-      "id": 4,
+      "id": 2,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -511,13 +463,27 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "100*node_filesystem_free_bytes{mountpoint=\"/etc/hostname\"} / node_filesystem_size_bytes{mountpoint=\"/etc/hostname\"}",
+          "exemplar": false,
+          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) / 1024 / 1024",
+          "hide": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[1m])/1024/1024",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "title": "Free Disk (%)",
+      "title": "Network Traffic (Mbps)",
       "type": "timeseries"
     }
   ],
