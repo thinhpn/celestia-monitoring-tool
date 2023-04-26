@@ -575,7 +575,7 @@
       "type": "gauge"
     }
   ],
-  "refresh": "5s",
+  "refresh": "10s",
   "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
@@ -591,6 +591,6 @@
   "timezone": "",
   "title": "Celestia Node Stats",
   "uid": "J_fOYgs4k",
-  "version": 13,
+  "version": 19,
   "weekStart": ""
 }
