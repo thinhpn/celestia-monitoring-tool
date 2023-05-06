@@ -21,7 +21,6 @@ services:
     container_name: "prometheus"
     ports:
       - "9090:9090"
-      - "3456:3456" 
     depends_on:
       - "node-exporter"     
     networks: 
