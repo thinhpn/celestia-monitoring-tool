@@ -46,7 +46,7 @@ services:
     restart: unless-stopped
 
   celestia-exporter:
-    image: thinhpn/celestia-exporter-light-node
+    image: thinhpn/celes-exporter-light-node
     platform: linux/arm64
     container_name: "celestia-exporter"
     ports:      
