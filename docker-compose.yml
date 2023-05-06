@@ -15,6 +15,18 @@ services:
     networks: 
       - monitoring
     restart: unless-stopped 
+  
+  celestia-exporter:
+    image: thinhpn/celes-exporter-light-node
+    platform: linux/arm64
+    container_name: "celestia-exporter"
+    ports:      
+      - "3456:3456"
+    depends_on:
+    - "node-exporter"    
+    networks: 
+      - monitoring    
+    restart: unless-stopped 
 
   prometheus:
     image: prom/prometheus
@@ -22,7 +34,8 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      - "node-exporter"     
+      - "node-exporter"
+      - "celestia-exporter"
     networks: 
       - monitoring     
     volumes:
@@ -37,26 +50,13 @@ services:
       - "4318:4318"
     depends_on:
     - "node-exporter"
+    - "celestia-exporter"
     - "prometheus"
     networks: 
       - monitoring
     volumes:
       - ./otel/config.yaml:/etc/otel/config.yaml
     command: ["--config=/etc/otel/config.yaml"]
-    restart: unless-stopped
-
-  celestia-exporter:
-    image: thinhpn/celes-exporter-light-node
-    platform: linux/arm64
-    container_name: "celestia-exporter"
-    ports:      
-      - "3456:3456"
-    depends_on:
-    - "node-exporter"
-    - "prometheus"
-    - "otel-collector"
-    networks: 
-      - monitoring    
     restart: unless-stopped 
 
   grafana:
@@ -65,9 +65,9 @@ services:
     user: ":"
     depends_on:
       - "node-exporter"
-      - "prometheus"
+      - "celestia-exporter"
+      - "prometheus"     
       - "otel-collector"
-      - "celestia-exporter"    
     ports:
       - "3000:3000"      
     networks: 
