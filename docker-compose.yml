@@ -20,7 +20,8 @@ services:
     image: prom/prometheus
     container_name: "prometheus"
     ports:
-      - "9090:9090"    
+      - "9090:9090"
+      - "3456:3456" 
     depends_on:
       - "node-exporter"     
     networks: 
@@ -54,7 +55,7 @@ services:
       - "prometheus"
       - "otel-collector"      
     ports:
-      - "3000:3000"
+      - "3000:3000"      
     networks: 
       - monitoring
     volumes:

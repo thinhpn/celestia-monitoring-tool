@@ -11,3 +11,8 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['otel-collector:6789']
+
+  - job_name: 'celestia-exporter'
+    scrape_interval: 30s
+    static_configs:
+      - targets: ['localhost:3456']
