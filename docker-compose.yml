@@ -47,7 +47,7 @@ services:
 
   celestia-exporter:
     image: thinhpn/celestia-exporter-light-node
-    platform: linux/amd64
+    platform: linux/arm64
     container_name: "celestia-exporter"
     ports:      
       - "3456:3456"
