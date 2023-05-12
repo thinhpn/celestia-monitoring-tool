@@ -32,6 +32,66 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
+      "description": "DAS Network Height",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "builder",
+          "expr": "das_network_head",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "DAS Network Height",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "description": "DAS Total Sample",
       "fieldConfig": {
         "defaults": {
@@ -68,7 +128,7 @@
       "gridPos": {
         "h": 7,
         "w": 6,
-        "x": 0,
+        "x": 6,
         "y": 0
       },
       "id": 4,
@@ -99,66 +159,6 @@
         }
       ],
       "title": "DAS Total Sample",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "description": "DAS Network Height",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 6,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "builder",
-          "expr": "das_network_head",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "DAS Network Height",
       "type": "gauge"
     },
     {
@@ -296,7 +296,7 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "Leaderboard PFB Count",
+      "description": "PFB Count Leaderboard ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -354,7 +354,7 @@
           "refId": "A"
         }
       ],
-      "title": "Leaderboard PFB Count",
+      "title": "PFB Count Leaderboard ",
       "type": "bargauge"
     },
     {
@@ -1058,7 +1058,7 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "Network Traffic (Mbps)",
+      "description": "Network Traffic (Kbps)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1137,7 +1137,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) / 1024 / 1024",
+          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) / 1024",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1148,14 +1148,14 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[1m])/ 1024 / 1024",
+          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[1m])/ 1024",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "B"
         }
       ],
-      "title": "Network Traffic (Mbps)",
+      "title": "Network Traffic (Kbps)",
       "type": "timeseries"
     }
   ],
@@ -1168,7 +1168,7 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
