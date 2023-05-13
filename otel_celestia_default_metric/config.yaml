@@ -1,10 +1,8 @@
 receivers:  
   otlp:
     protocols:
-      http1:
-        endpoint: 0.0.0.0:4318  
-      http2:
-        endpoint: 0.0.0.0:3456  
+      http:
+        endpoint: 0.0.0.0:4318        
 processors:
   batch:
 

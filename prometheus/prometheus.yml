@@ -3,14 +3,19 @@ global:
 
 scrape_configs:
   - job_name: 'node-exporter'
-    scrape_interval: 5s
+    scrape_interval: 10s
     static_configs:
       - targets: ['node-exporter:9100']
 
-  - job_name: 'otel-collector'
-    scrape_interval: 5s
+  - job_name: 'otel-collector-default'
+    scrape_interval: 10s
     static_configs:
-      - targets: ['otel-collector:6789']
+      - targets: ['otel-collector-default-metric:6789']
+
+  - job_name: 'otel-collector-custom'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['otel-collector-custom-metric:6789']
 
   # - job_name: 'celestia-exporter'
   #   scrape_interval: 30s
