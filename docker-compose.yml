@@ -101,4 +101,4 @@ networks:
   monitoring:
     driver: bridge
   host:
-    export: true
+    external: true
