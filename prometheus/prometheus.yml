@@ -12,12 +12,12 @@ scrape_configs:
     static_configs:
       - targets: ['otel-collector-default-metric:6789']
 
-  - job_name: 'otel-collector-custom'
-    scrape_interval: 10s
-    static_configs:
-      - targets: ['192.168.32.1:3456']
-
-  # - job_name: 'celestia-exporter'
-  #   scrape_interval: 30s
+  # - job_name: 'otel-collector-custom'
+  #   scrape_interval: 10s
   #   static_configs:
-  #     - targets: ['localhost:3456']
+  #     - targets: ['192.168.32.1:3456']
+
+  - job_name: 'celestia-exporter'
+    scrape_interval: 30s
+    static_configs:
+      - targets: ['localhost:3456']
