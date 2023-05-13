@@ -3,7 +3,10 @@ receivers:
     protocols:
       http:
         endpoint: 0.0.0.0:4318
-
+  oltp_celestia:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:3456
 processors:
   batch:
 
@@ -14,6 +17,6 @@ exporters:
 service:
   pipelines:
     metrics:
-      receivers: [otlp]
+      receivers: [otlp,oltp_celestia]
       processors: [batch]
       exporters: [prometheus]
