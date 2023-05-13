@@ -37,7 +37,8 @@ services:
       - "node-exporter"
       # - "celestia-exporter"
     networks: 
-      - monitoring     
+      - monitoring
+      - host   
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command: '--config.file=/etc/prometheus/prometheus.yml'
@@ -59,21 +60,21 @@ services:
     command: ["--config=/etc/otel/config.yaml"]
     restart: unless-stopped 
   
-  otel-collector-custom-metric:
-    image: otel/opentelemetry-collector
-    container_name: "otel-collector-custom-metric"
-    ports:      
-      - "3460:3460"    
-    depends_on:
-    - "node-exporter"
-    # - "celestia-exporter"
-    - "prometheus"
-    networks: 
-      - monitoring      
-    volumes:
-      - ./otel_celestia_custom_metric/config.yaml:/etc/otel/config.yaml
-    command: ["--config=/etc/otel/config.yaml"]
-    restart: unless-stopped
+  # otel-collector-custom-metric:
+  #   image: otel/opentelemetry-collector
+  #   container_name: "otel-collector-custom-metric"
+  #   ports:      
+  #     - "3456:3456"    
+  #   depends_on:
+  #   - "node-exporter"
+  #   # - "celestia-exporter"
+  #   - "prometheus"
+  #   networks: 
+  #     - monitoring      
+  #   volumes:
+  #     - ./otel_celestia_custom_metric/config.yaml:/etc/otel/config.yaml
+  #   command: ["--config=/etc/otel/config.yaml"]
+  #   restart: unless-stopped
 
   grafana:
     image: grafana/grafana
@@ -84,7 +85,7 @@ services:
       # - "celestia-exporter"
       - "prometheus"     
       - "otel-collector-default-metric"
-      - "otel-collector-custom-metric"
+      # - "otel-collector-custom-metric"
     ports:
       - "3000:3000"      
     networks: 
@@ -99,3 +100,5 @@ services:
 networks:
   monitoring:
     driver: bridge
+  host:
+    exporter: true
