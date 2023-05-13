@@ -2,7 +2,7 @@ receivers:
   otlp:
     protocols:
       http:
-        endpoint: 0.0.0.0:3456        
+        endpoint: 162.55.165.91:3456        
 processors:
   batch:
 

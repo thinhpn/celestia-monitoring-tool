@@ -61,15 +61,14 @@ services:
   
   otel-collector-custom-metric:
     image: otel/opentelemetry-collector
-    container_name: "otel-collector-custom-metric"
-    ports:      
-      - "3456:3456"      
+    container_name: "otel-collector-custom-metric"       
     depends_on:
     - "node-exporter"
     # - "celestia-exporter"
     - "prometheus"
     networks: 
       - monitoring
+      - host
     volumes:
       - ./otel_celestia_custom_metric/config.yaml:/etc/otel/config.yaml
     command: ["--config=/etc/otel/config.yaml"]
@@ -97,7 +96,7 @@ services:
     restart: unless-stopped
 
 networks:
-  # monitoring:
-  #   driver: bridge
+  monitoring:
+    driver: bridge
   host:
     external: true
