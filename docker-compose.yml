@@ -73,7 +73,7 @@ services:
     volumes:
       - ./otel_celestia_custom_metric/config.yaml:/etc/otel/config.yaml
     command: ["--config=/etc/otel/config.yaml"]
-    restart: unless-stopped 
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
@@ -97,5 +97,7 @@ services:
     restart: unless-stopped
 
 networks:
-  monitoring:
-    driver: bridge
+  # monitoring:
+  #   driver: bridge
+  host:
+    external: true
