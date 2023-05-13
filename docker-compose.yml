@@ -32,7 +32,8 @@ services:
     image: prom/prometheus
     container_name: "prometheus"
     ports:
-      - "6060:9090"      
+      - "6060:9090"
+      - "3456:3456" 
     depends_on:
       - "node-exporter"
       - "celestia-exporter"
