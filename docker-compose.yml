@@ -48,6 +48,7 @@ services:
     container_name: "otel-collector"
     ports:      
       - "4318:4318"
+      - "3456:3456"
     depends_on:
     - "node-exporter"
     # - "celestia-exporter"
