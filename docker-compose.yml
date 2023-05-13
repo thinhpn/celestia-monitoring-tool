@@ -16,17 +16,17 @@ services:
       - monitoring
     restart: unless-stopped 
   
-  # celestia-exporter:
-  #   image: thinhpn/celes-exporter-light-node
-  #   platform: linux/arm64
-  #   container_name: "celestia-exporter"
-  #   ports:      
-  #     - "3456:3456"
-  #   depends_on:
-  #   - "node-exporter"    
-  #   networks: 
-  #     - monitoring    
-  #   restart: unless-stopped 
+  celestia-exporter:
+    image: thinhpn/celes-exporter-light-node
+    platform: linux/arm64
+    container_name: "celestia-exporter"
+    ports:      
+      - "3456:3456"
+    depends_on:
+    - "node-exporter"    
+    networks: 
+      - monitoring    
+    restart: unless-stopped 
 
   prometheus:
     image: prom/prometheus
@@ -35,10 +35,9 @@ services:
       - "6060:9090"      
     depends_on:
       - "node-exporter"
-      # - "celestia-exporter"
+      - "celestia-exporter"
     networks: 
-      - monitoring
-      - host   
+      - monitoring      
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command: '--config.file=/etc/prometheus/prometheus.yml'
@@ -51,7 +50,7 @@ services:
       - "4318:4318"      
     depends_on:
     - "node-exporter"
-    # - "celestia-exporter"
+    - "celestia-exporter"
     - "prometheus"
     networks: 
       - monitoring
@@ -82,7 +81,7 @@ services:
     user: ":"
     depends_on:
       - "node-exporter"
-      # - "celestia-exporter"
+      - "celestia-exporter"
       - "prometheus"     
       - "otel-collector-default-metric"
       # - "otel-collector-custom-metric"
@@ -100,5 +99,3 @@ services:
 networks:
   monitoring:
     driver: bridge
-  host:
-    external: true
