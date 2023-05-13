@@ -61,7 +61,9 @@ services:
   
   otel-collector-custom-metric:
     image: otel/opentelemetry-collector
-    container_name: "otel-collector-custom-metric"       
+    container_name: "otel-collector-custom-metric"
+    ports:      
+      - "3460:3460"    
     depends_on:
     - "node-exporter"
     # - "celestia-exporter"
