@@ -32,7 +32,9 @@ Type 1: Celestia network-specific metrics:
  * celestia_node_last_restart_time
  * celestia_node_head
  * ...
+
 Type 2: Host performance metrics:
+
  * CPU Load
  * RAM Usage
  * Network Traffic
@@ -40,99 +42,23 @@ Type 2: Host performance metrics:
  * ...
 For Type 1, we need to understand how to extract the metrics from the Celestia network nodes to the external monitoring system. Type 2 is more common and easier. After some research, we can use Prometheus' node-exporter to monitor these metrics.
 
-Returning to Type 1, if we examine the code running a service for Celestia, we will notice that the default node metrics are pushed to an endpoint at otel.celestia.tools:4318.
+Returning to Type 1, if we examine the code running a service for Celestia, we will notice that the default node metrics are pushed to an endpoint at `otel.celestia.tools:4318`
 
 We have the solution now. If we change our endpoint to replace this default endpoint, we can retrieve the necessary metrics.
 
 Note: Changing the endpoint to collect metrics will cause your node not to display information on Tiascan because the default endpoint is the one Tiascan uses to gather node information and process it.
 
 I have made some modifications to the code running the node, and we will have the following service: `celestia light start --core.ip https://rpc-blockspacerace.pops.one/ --keyring.accname my_celes_key --gateway --gateway.addr localhost --gateway.port 26659 --p2p.network blockspacerace --metrics.tls=false --metrics --metrics.endpoint localhost:4318`
-Yes, so what if we use OpenTelemetry - a tool to collect metrics from various sources? We can retrieve and display Celestia's metrics on Grafana! Yahoo!!!
+Yes, so what if we use OpenTelemetry - a tool to collect metrics from our endpoint at `localhost:4318`? We can retrieve and display Celestia's metrics on Grafana! 
+Yahoo!!!
 In the next step, I will use a solution to set up node-exporter, Prometheus, otel-collector, and Grafana using Docker Compose to enable a quick deployment of the monitoring system with just a single command!
 (You can learn how to build a docker-compose.yml file at this link: https://docs.docker.com/compose/)
-Here is the complete docker-compose file:
-
-version: "3"
-services:
-
-  node-exporter:
-    image: prom/node-exporter
-    container_name: "node-exporter"
-    ports:
-      - "9100:9100"    
-    networks: 
-      - monitoring
-    restart: unless-stopped 
-  
-  celestia-exporter:
-    image: thinhpn/celes-exporter-light-node
-    platform: linux/arm64
-    container_name: "celestia-exporter"
-    ports:      
-      - "3456:3456"
-    depends_on:
-    - "node-exporter"    
-    networks: 
-      - monitoring    
-    restart: unless-stopped 
-
-  prometheus:
-    image: prom/prometheus
-    container_name: "prometheus"
-    ports:
-      - "6060:9090"
-    depends_on:
-      - "node-exporter"
-      - "celestia-exporter"
-    networks: 
-      - monitoring
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    command: '--config.file=/etc/prometheus/prometheus.yml'
-    restart: unless-stopped 
-
-  otel-collector-default-metric:
-    image: otel/opentelemetry-collector
-    container_name: "otel-collector-default-metric"
-    ports:      
-      - "4318:4318"      
-    depends_on:
-    - "node-exporter"
-    - "celestia-exporter"
-    - "prometheus"
-    networks: 
-      - monitoring
-    volumes:
-      - ./otel_celestia_default_metric/config.yaml:/etc/otel/config.yaml
-    command: ["--config=/etc/otel/config.yaml"]
-    restart: unless-stopped 
-
-  grafana:
-    image: grafana/grafana
-    container_name: "grafana"
-    user: ":"
-    depends_on:
-      - "node-exporter"
-      - "celestia-exporter"
-      - "prometheus"     
-      - "otel-collector-default-metric"      
-    ports:
-      - "3000:3000"      
-    networks: 
-      - monitoring
-    volumes:
-      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
-      - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/datasource.yml
-      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
-      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
-    restart: unless-stopped
-
-networks:
-  monitoring:
-    driver: bridge
+Here is path of complete docker-compose file: ./docker-compose.yml
 
 This is a video of the process of deploying the Celestia light-node using a single script:
 
 This is the deployment process of the Celestia network node performance monitoring tool using docker-compose in just 30 seconds.
 
 You can refer to my node monitoring link at this address: `https://monitor.thinhpn.com/d/J_fOYgs4k/celestia-node-stats?orgId=1&refresh=10s`
+
+From Celestia with Love!!!
