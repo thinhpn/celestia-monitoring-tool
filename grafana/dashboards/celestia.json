@@ -607,7 +607,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "100 * das_total_sampled_headers / das_total_sampled_headers",
+          "expr": "100 * das_total_sampled_headers / das_network_head",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1003,7 +1003,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "tooltip": {
           "mode": "single",
@@ -1141,13 +1141,13 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Celestia Node Stats",
   "uid": "J_fOYgs4k",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
