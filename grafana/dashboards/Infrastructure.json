@@ -87,7 +87,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -151,7 +151,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -359,7 +359,7 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "Network Traffic (Mbps)",
+      "description": "Network Traffic (Kbps)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -464,7 +464,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) / 1024 / 1024",
+          "expr": "avg(irate(node_network_receive_bytes_total{device=\"eth0\"}[5m])) / 1024",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -476,14 +476,14 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[1m])/1024/1024",
+          "expr": "avg(irate(node_network_transmit_bytes_total{device=\"eth0\"}[5m])) / 1024",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "B"
         }
       ],
-      "title": "Network Traffic (Mbps)",
+      "title": "Network Traffic (Kbps)",
       "type": "timeseries"
     }
   ],
@@ -496,7 +496,7 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},

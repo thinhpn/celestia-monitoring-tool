@@ -783,37 +783,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
@@ -825,7 +795,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 20
               }
             ]
           }
@@ -840,17 +810,20 @@
       },
       "id": 24,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto"
       },
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -865,7 +838,7 @@
         }
       ],
       "title": "Free Disk (%)",
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1137,7 +1110,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) / 1024",
+          "expr": "avg(irate(node_network_receive_bytes_total{device=\"eth0\"}[5m])) / 1024",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1148,7 +1121,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[1m])/ 1024",
+          "expr": "avg(irate(node_network_transmit_bytes_total{device=\"eth0\"}[5m])) / 1024",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
