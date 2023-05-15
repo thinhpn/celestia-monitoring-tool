@@ -52,12 +52,13 @@ I have made some modifications to the code running the node, and we will have th
 Yes, so what if we use OpenTelemetry - a tool to collect metrics from our endpoint at `localhost:4318`? We can retrieve and display Celestia's metrics on Grafana! 
 Yahoo!!!
 In the next step, I will use a solution to set up node-exporter, Prometheus, otel-collector, and Grafana using Docker Compose to enable a quick deployment of the monitoring system with just a single command!
-(You can learn how to build a docker-compose.yml file at this link: https://docs.docker.com/compose/)
+(You can learn how to build a docker-compose.yml file at this link: https://docs.docker.com/compose/).
+
 Here is path of complete docker-compose file: ./docker-compose.yml
 
 This is a video of the process of deploying the Celestia light-node using a single script:
 
-This is the deployment process of the Celestia network node performance monitoring tool using docker-compose in just 30 seconds.
+This is the deployment process of the Celestia network node performance monitoring tool using docker-compose in just 30 seconds:
 
 You can refer to my node monitoring link at this address: `https://monitor.thinhpn.com/d/J_fOYgs4k/celestia-node-stats?orgId=1&refresh=10s`
 
