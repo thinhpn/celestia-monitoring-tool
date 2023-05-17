@@ -1141,13 +1141,13 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Celestia Node Stats",
   "uid": "J_fOYgs4k",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
