@@ -1110,7 +1110,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "avg(irate(node_network_receive_bytes_total{device=\"eth0\"}[5m])) / 1024",
+          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[1m]) * 8 / 1000",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1121,7 +1121,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "avg(irate(node_network_transmit_bytes_total{device=\"eth0\"}[5m])) / 1024",
+          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[1m]) * 8 / 1000",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1141,13 +1141,13 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Celestia Node Stats",
   "uid": "J_fOYgs4k",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
