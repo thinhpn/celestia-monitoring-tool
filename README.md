@@ -60,6 +60,4 @@ This is a video of the process of deploying the Celestia light-node using a sing
 
 This is the deployment process of the Celestia network node performance monitoring tool using docker-compose in just 30 seconds:
 
-You can refer to my node monitoring link at this address: `https://monitor.thinhpn.com/d/J_fOYgs4k/celestia-node-stats?orgId=1&refresh=10s`
-
 From Celestia with Love!!!
